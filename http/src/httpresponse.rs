@@ -31,7 +31,7 @@ impl<'a> From<HttpResponse<'a>> for String {
       &res_clone.status_code(),
       &res_clone.status_text(),
       &res_clone.headers(),
-      &res.body.unwrap().len(),
+      &res.body().len(),
       &res_clone.body()
     )
   }

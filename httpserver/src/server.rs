@@ -23,7 +23,7 @@ impl<'a> Server<'a> {
 
             let mut read_buffer = [0; 200];
             stream.read(&mut read_buffer).unwrap();
-            let rep: HttpRequest = String::from_utf8(read_buffer.to_vec()).unwrap().into();
+            let req: HttpRequest = String::from_utf8(read_buffer.to_vec()).unwrap().into();
             Router::route(req, &mut stream);
         }
     }
