@@ -1,4 +1,5 @@
 use super::router::Router;
+use chrono::prelude::*;
 use http::httprequest::HttpRequest;
 use std::io::prelude::*;
 use std::net::TcpListener;
@@ -19,12 +20,15 @@ impl<'a> Server<'a> {
 
         for stream in connection_listener.incoming() {
             let mut stream = stream.unwrap();
-            println!("Connection established");
 
             let mut read_buffer = [0; 200];
             stream.read(&mut read_buffer).unwrap();
             let req: HttpRequest = String::from_utf8(read_buffer.to_vec()).unwrap().into();
+
+            println!("{:?}\t{:?}", Local::now(), req);
+            println!("{:?}\t{}", Local::now(), "Entry router");
             Router::route(req, &mut stream);
+            println!("{:?}\t{}", Local::now(), "Leave router");
         }
     }
 }
